@@ -1,0 +1,279 @@
+openapi: 3.0.1
+info:
+  title: FavQs
+  description: Use FavQs to collect, discover and share your favorite quotes.  To
+    know more, click [here](https://favqs.com/about)
+  termsOfService: https://favqs.com/api_terms
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Legal
+    url: https://favqs.com/legal
+  version: 1.0.0
+servers:
+- url: https://favqs.com/api
+- url: http://favqs.com/api
+tags:
+- name: Quotes
+  description: Get a list of quotes
+- name: user
+  description: Create user
+paths:
+  /qotd:
+    get:
+      tags:
+      -   Quote of the day
+      summary: This method requires no authentication or parameters.
+      description: Click the Try it Out button to return
+                   the quote of the day
+      operationId: getqotd
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+
+
+  /quotes/{quote_id}:
+    get:
+      tags:
+      - Quotes
+      summary: Find quote by ID
+      description: Returns a single quote
+      operationId: getQuoteById
+      parameters:
+      - name: quote_id
+        in: path
+        description: ID of pet to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/quotebyID'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        401:
+          description: The api key is not valid.
+          content: {}
+        404:
+          description: Quote not found
+          content: {}
+      security:
+      - bearer_key: []
+  /users:
+    post:
+      tags:
+      - user
+      summary: Create user
+      description: Enter a random login name, and your username and password.
+      operationId: createUser
+      requestBody:
+        description: Create user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createuser'
+        required: true
+      responses:
+        200:
+          description: user created successfully
+          content:
+            application/json:
+             schema:
+              #createdUser: #
+                type: object
+                properties:
+                  usertoken:
+                    type: string
+                  login:
+                    type: string
+      security:
+      - bearer_key: []
+  /users/forgot_password:
+    post:
+      tags:
+      - forgot password
+      summary: request a password reset.
+      description: enter your email address here.
+      operationId: forgotpassword
+      requestBody:
+        description: reset link will be mailed to you.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+      responses:
+        200:
+          description: valid email.. so reset link sent
+          content:
+            application/json:
+             schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      security:
+      - bearer_key: []
+  /users/reset_password:
+    post:
+      tags:
+      - reset password
+      summary: reset password
+      description: first get password token by executing the "forgot password" endpoint
+      operationId: resetpassword
+      requestBody:
+        description: reset link will be mailed to you.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    reset_password_token:
+                      type: string
+      responses:
+        200:
+          description: valid email.. so reset link sent
+          content:
+            application/json:
+             schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      security:
+      - bearer_key: []
+  /session:
+    post:
+      tags:
+      - session
+      summary: Create session
+      description: Enter userid and password. A session token is returned
+      operationId: createSession
+      requestBody:
+        description: Create session
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createsession'
+        required: true
+      responses:
+        200:
+          description: session created successfully
+          content:
+            application/json:
+             schema:
+              #createdSession: #
+                type: object
+                properties:
+                  usertoken:
+                    type: string
+                  login:
+                    type: string
+      security:
+      - bearer_key: []
+  /quotes:
+    get:
+      tags:
+      - ListQuotes
+      summary: Displays a list of 25 quotes
+      operationId: listquotes
+      parameters:
+      - name: filter
+        in: query
+        description: enter a keyword to search
+        required: false
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Search based on the author, tag, or the user.
+        required: false
+        schema:
+          type: string
+          enum: ['author', 'tag','user']
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Invalid username and password supplied
+      security:
+      - bearer_key: []
+components:
+  schemas:
+    createuser:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+              login:
+                type: string
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+    createsession:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+              login:
+                type: string
+              password:
+                type: string
+    quotebyID:
+      required:
+      - id
+      - dialogue
+      - private
+      - tags
+      - url
+      - author
+      - body
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        dialogue:
+          type: boolean
+        private:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        url: 
+          type: string
+  securitySchemes:
+    bearer_key:
+      type: http
+      scheme: bearer
