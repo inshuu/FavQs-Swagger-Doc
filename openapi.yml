@@ -197,7 +197,7 @@ paths:
     get:
       tags:
       - ListQuotes
-      summary: Displays a list of 25 quotes in one page. You can refine the results by searching for specific quotes based on the Author, User and Tag. Select User to display all the quotes added or Fav'd by you. To search based on the author of the quote or the global tag associated with the quote, use the Author or Tag filters respectively (Note: The Tag filter does not work for personal tags.)
+      summary: Displays a list of 25 quotes in one page. You can refine the results by searching for specific quotes based on the Author, User and Tag. Select User to display all the quotes added or Favd by you. To search based on the author of the quote or the global tag associated with the quote, use the Author or Tag filters respectively
       operationId: listquotes
       parameters:
       - name: filter
