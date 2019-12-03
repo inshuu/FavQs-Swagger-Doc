@@ -277,4 +277,3 @@ components:
     bearer_key:
       type: http
       scheme: bearer
-      description: Sign up for an Favqs account and request for an API key. The key is passed as an access token to authorize your API call.
