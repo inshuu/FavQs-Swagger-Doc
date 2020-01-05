@@ -72,7 +72,7 @@ paths:
   /users:
     post:
       tags:
-      - user
+      - User
       summary: Create user
       description: Enter a random login name, and your username and password.
       operationId: createUser
@@ -101,9 +101,9 @@ paths:
   /users/forgot_password:
     post:
       tags:
-      - forgot password
+      - Forgot password
       summary: Execute this endpoint to request a password reset
-      description: enter your email address here.
+      description: Enter your email address here.
       operationId: forgotpassword
       requestBody:
         description: The reset link will be mailed to you.
@@ -133,7 +133,7 @@ paths:
   /users/reset_password:
     post:
       tags:
-      - reset password
+      - Reset password
       summary: reset password
       description: Enter the reset password token here.
       operationId: resetpassword
@@ -239,16 +239,16 @@ components:
                 format: email
               password:
                 type: string
-    #createsession:
-      #type: object
-      #properties:
-        #user:
-          #type: object
-          #properties:
-              #login:
-                #type: string
-              #password:
-                #type: string
+    createsession:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+              login:
+                type: string
+              password:
+                type: string
     quotebyID:
       required:
       - id
