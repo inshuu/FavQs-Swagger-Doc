@@ -102,11 +102,11 @@ paths:
     post:
       tags:
       - forgot password
-      summary: request a password reset.
-      description: enter your email address here.
+      summary: Execute this endpoint to request a password reset
+      description: Enter your email address.
       operationId: forgotpassword
       requestBody:
-        description: reset link will be mailed to you.
+        description: The reset link will be mailed to you.
         content:
           application/json:
             schema:
@@ -120,7 +120,7 @@ paths:
                       format: email
       responses:
         200:
-          description: valid email.. so reset link sent
+          description: If the email address is valid, reset link is sent to you.
           content:
             application/json:
              schema:
@@ -135,10 +135,10 @@ paths:
       tags:
       - reset password
       summary: reset password
-      description: first get password token by executing the "forgot password" endpoint
+      description: Enter the reset password token here.
       operationId: resetpassword
       requestBody:
-        description: reset link will be mailed to you.
+        description: If the token is valid, the password is updated. 
         content:
           application/json:
             schema:
@@ -154,7 +154,7 @@ paths:
                       type: string
       responses:
         200:
-          description: valid email.. so reset link sent
+          description: The password is updated.
           content:
             application/json:
              schema:
@@ -271,7 +271,7 @@ components:
           type: array
           items:
             type: string
-        url: 
+        url:
           type: string
   securitySchemes:
     bearer_key:

@@ -102,11 +102,11 @@ paths:
     post:
       tags:
       - forgot password
-      summary: request a password reset.
+      summary: Execute this endpoint to request a password reset
       description: enter your email address here.
       operationId: forgotpassword
       requestBody:
-        description: reset link will be mailed to you.
+        description: The reset link will be mailed to you.
         content:
           application/json:
             schema:
@@ -120,7 +120,7 @@ paths:
                       format: email
       responses:
         200:
-          description: valid email.. so reset link sent
+          description: If the email address is valid, reset link is sent to you.
           content:
             application/json:
              schema:
@@ -135,10 +135,10 @@ paths:
       tags:
       - reset password
       summary: reset password
-      description: first get password token by executing the "forgot password" endpoint
+      description: Enter the reset password token here.
       operationId: resetpassword
       requestBody:
-        description: reset link will be mailed to you.
+        description: If the token is valid, the password is updated.
         content:
           application/json:
             schema:
@@ -197,7 +197,7 @@ paths:
     get:
       tags:
       - ListQuotes
-      summary: Displays a list of 25 quotes in one page. You can refine the results by searching for specific quotes based on the Author, User and Tag. Select User to display all the quotes added or Favd by you. To search based on the author of the quote or the global tag associated with the quote, use the Author or Tag filters respectively
+      summary: Displays a list of 25 quotes in one page. You can refine the results by searching for specific quotes based on the Author, User and Tag.
       operationId: listquotes
       parameters:
       - name: filter
@@ -239,16 +239,16 @@ components:
                 format: email
               password:
                 type: string
-    createsession:
-      type: object
-      properties:
-        user:
-          type: object
-          properties:
-              login:
-                type: string
-              password:
-                type: string
+    #createsession:
+      #type: object
+      #properties:
+        #user:
+          #type: object
+          #properties:
+              #login:
+                #type: string
+              #password:
+                #type: string
     quotebyID:
       required:
       - id
