@@ -167,7 +167,7 @@ paths:
   /session:
     post:
       tags:
-      - session
+      - Session
       summary: Create session
       description: Enter userid and password. A session token is returned
       operationId: createSession
