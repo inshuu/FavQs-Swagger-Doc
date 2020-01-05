@@ -16,8 +16,8 @@ servers:
 tags:
 - name: Quotes
   description: Get a list of quotes
-- name: user
-  description: Create user
+#- name: user
+  #description: Create user
 paths:
   /qotd:
     get:
